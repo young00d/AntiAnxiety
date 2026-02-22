@@ -66,9 +66,8 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showStats) {
             if let tapManager {
-                StatsView(tapManager: tapManager)
+                StatsView(tapManager: tapManager, skin: currentSkin)
                     .presentationDetents([.large])
-                    .presentationDragIndicator(.visible)
             }
         }
     }

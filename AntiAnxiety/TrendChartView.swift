@@ -3,6 +3,7 @@ import Charts
 
 struct TrendChartView: View {
     var tapManager: TapManager
+    var skin: SkinType
     @State private var chartMode: ChartMode = .monthly
     @State private var selectedMonth: Date = Date()
     @State private var selectedYear: Int = Calendar.current.component(.year, from: Date())
@@ -10,6 +11,18 @@ struct TrendChartView: View {
     enum ChartMode: String, CaseIterable {
         case monthly = "月"
         case yearly = "年"
+    }
+
+    private var accentColor: Color {
+        skin == .threeBody ? .cyan : .brown
+    }
+
+    private var textColor: Color {
+        skin == .threeBody ? .white : .primary
+    }
+
+    private var secondaryTextColor: Color {
+        skin == .threeBody ? .white.opacity(0.5) : .secondary
     }
 
     var body: some View {
@@ -41,12 +54,14 @@ struct TrendChartView: View {
                     selectedMonth = Calendar.current.date(byAdding: .month, value: -1, to: selectedMonth) ?? selectedMonth
                 } label: {
                     Image(systemName: "chevron.left")
+                        .foregroundStyle(accentColor)
                 }
 
                 Spacer()
 
                 Text(monthString(selectedMonth))
                     .font(.headline)
+                    .foregroundStyle(textColor)
 
                 Spacer()
 
@@ -54,6 +69,7 @@ struct TrendChartView: View {
                     selectedMonth = Calendar.current.date(byAdding: .month, value: 1, to: selectedMonth) ?? selectedMonth
                 } label: {
                     Image(systemName: "chevron.right")
+                        .foregroundStyle(accentColor)
                 }
             }
             .padding(.horizontal, 24)
@@ -69,7 +85,7 @@ struct TrendChartView: View {
                         y: .value("次数", item.count)
                     )
                     .interpolationMethod(.catmullRom)
-                    .foregroundStyle(Color.cyan)
+                    .foregroundStyle(accentColor)
 
                     AreaMark(
                         x: .value("日", item.day),
@@ -78,7 +94,7 @@ struct TrendChartView: View {
                     .interpolationMethod(.catmullRom)
                     .foregroundStyle(
                         LinearGradient(
-                            colors: [.cyan.opacity(0.3), .cyan.opacity(0.02)],
+                            colors: [accentColor.opacity(0.3), accentColor.opacity(0.02)],
                             startPoint: .top,
                             endPoint: .bottom
                         )
@@ -86,6 +102,22 @@ struct TrendChartView: View {
                 }
                 .chartXAxisLabel("日期")
                 .chartYAxisLabel("次数")
+                .chartXAxis {
+                    AxisMarks { value in
+                        AxisValueLabel()
+                            .foregroundStyle(secondaryTextColor)
+                        AxisGridLine()
+                            .foregroundStyle(secondaryTextColor.opacity(0.3))
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks { value in
+                        AxisValueLabel()
+                            .foregroundStyle(secondaryTextColor)
+                        AxisGridLine()
+                            .foregroundStyle(secondaryTextColor.opacity(0.3))
+                    }
+                }
                 .frame(height: 220)
                 .padding(.horizontal, 16)
             }
@@ -111,12 +143,14 @@ struct TrendChartView: View {
                     selectedYear -= 1
                 } label: {
                     Image(systemName: "chevron.left")
+                        .foregroundStyle(accentColor)
                 }
 
                 Spacer()
 
                 Text("\(String(selectedYear))年")
                     .font(.headline)
+                    .foregroundStyle(textColor)
 
                 Spacer()
 
@@ -124,6 +158,7 @@ struct TrendChartView: View {
                     selectedYear += 1
                 } label: {
                     Image(systemName: "chevron.right")
+                        .foregroundStyle(accentColor)
                 }
             }
             .padding(.horizontal, 24)
@@ -139,7 +174,7 @@ struct TrendChartView: View {
                         y: .value("次数", item.count)
                     )
                     .interpolationMethod(.catmullRom)
-                    .foregroundStyle(Color.orange)
+                    .foregroundStyle(accentColor)
 
                     AreaMark(
                         x: .value("月", item.month),
@@ -148,7 +183,7 @@ struct TrendChartView: View {
                     .interpolationMethod(.catmullRom)
                     .foregroundStyle(
                         LinearGradient(
-                            colors: [.orange.opacity(0.3), .orange.opacity(0.02)],
+                            colors: [accentColor.opacity(0.3), accentColor.opacity(0.02)],
                             startPoint: .top,
                             endPoint: .bottom
                         )
@@ -158,11 +193,27 @@ struct TrendChartView: View {
                         x: .value("月", item.month),
                         y: .value("次数", item.count)
                     )
-                    .foregroundStyle(Color.orange)
+                    .foregroundStyle(accentColor)
                 }
                 .chartXAxisLabel("月份")
                 .chartYAxisLabel("次数")
                 .chartXScale(domain: 1...12)
+                .chartXAxis {
+                    AxisMarks { value in
+                        AxisValueLabel()
+                            .foregroundStyle(secondaryTextColor)
+                        AxisGridLine()
+                            .foregroundStyle(secondaryTextColor.opacity(0.3))
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks { value in
+                        AxisValueLabel()
+                            .foregroundStyle(secondaryTextColor)
+                        AxisGridLine()
+                            .foregroundStyle(secondaryTextColor.opacity(0.3))
+                    }
+                }
                 .frame(height: 220)
                 .padding(.horizontal, 16)
             }
@@ -183,10 +234,10 @@ struct TrendChartView: View {
         VStack(spacing: 8) {
             Image(systemName: "chart.line.uptrend.xyaxis")
                 .font(.system(size: 40))
-                .foregroundStyle(.quaternary)
+                .foregroundStyle(secondaryTextColor.opacity(0.5))
             Text("暂无数据")
                 .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(secondaryTextColor)
         }
         .frame(height: 220)
     }
@@ -195,9 +246,10 @@ struct TrendChartView: View {
         VStack(spacing: 4) {
             Text(value)
                 .font(.system(size: 20, weight: .medium, design: .rounded))
+                .foregroundStyle(textColor)
             Text(label)
                 .font(.system(size: 11))
-                .foregroundStyle(.secondary)
+                .foregroundStyle(secondaryTextColor)
         }
     }
 
@@ -269,6 +321,6 @@ struct MonthlyPoint {
 }
 
 #Preview {
-    TrendChartView(tapManager: .preview)
+    TrendChartView(tapManager: .preview, skin: .threeBody)
         .modelContainer(for: DailyTapRecord.self, inMemory: true)
 }

@@ -2,43 +2,57 @@ import SwiftUI
 
 struct StatsView: View {
     var tapManager: TapManager
-    @State private var selectedTab: StatsTab = .calendar
-
-    enum StatsTab: String, CaseIterable {
-        case calendar = "日历"
-        case trends = "趋势"
-    }
+    var skin: SkinType
 
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                Picker("", selection: $selectedTab) {
-                    ForEach(StatsTab.allCases, id: \.self) { tab in
-                        Text(tab.rawValue).tag(tab)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal, 24)
-                .padding(.top, 8)
+        ZStack {
+            // Match the skin background
+            backgroundForSkin(skin)
+                .ignoresSafeArea()
 
-                ScrollView {
-                    switch selectedTab {
-                    case .calendar:
-                        CalendarView(tapManager: tapManager)
-                            .padding(.top, 16)
-                    case .trends:
-                        TrendChartView(tapManager: tapManager)
-                            .padding(.top, 16)
-                    }
+            ScrollView {
+                VStack(spacing: 20) {
+                    Text(skin == .threeBody ? "发送信号统计" : "功德统计")
+                        .font(skin == .threeBody
+                              ? .system(size: 18, weight: .medium, design: .monospaced)
+                              : .system(size: 18, weight: .medium, design: .serif))
+                        .foregroundStyle(skin == .threeBody ? .cyan : .brown.opacity(0.8))
+                        .padding(.top, 24)
+
+                    TrendChartView(tapManager: tapManager, skin: skin)
                 }
             }
-            .navigationTitle("统计")
-            .navigationBarTitleDisplayMode(.inline)
+        }
+        .presentationDragIndicator(.visible)
+    }
+
+    @ViewBuilder
+    func backgroundForSkin(_ skin: SkinType) -> some View {
+        switch skin {
+        case .threeBody:
+            LinearGradient(
+                colors: [
+                    Color(red: 0.02, green: 0.02, blue: 0.08),
+                    Color(red: 0.05, green: 0.05, blue: 0.15),
+                    Color(red: 0.02, green: 0.02, blue: 0.08)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        case .woodenFish:
+            LinearGradient(
+                colors: [
+                    Color(red: 0.96, green: 0.93, blue: 0.88),
+                    Color(red: 0.92, green: 0.88, blue: 0.82)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
         }
     }
 }
 
 #Preview {
-    StatsView(tapManager: .preview)
+    StatsView(tapManager: .preview, skin: .threeBody)
         .modelContainer(for: DailyTapRecord.self, inMemory: true)
 }
