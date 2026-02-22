@@ -27,13 +27,9 @@ struct TrendChartView: View {
 
     var body: some View {
         VStack(spacing: 20) {
-            Picker("", selection: $chartMode) {
-                ForEach(ChartMode.allCases, id: \.self) { mode in
-                    Text(mode.rawValue).tag(mode)
-                }
-            }
-            .pickerStyle(.segmented)
-            .padding(.horizontal, 24)
+            // Custom tab switcher
+            chartTabSwitcher
+                .padding(.horizontal, 24)
 
             switch chartMode {
             case .monthly:
@@ -225,6 +221,39 @@ struct TrendChartView: View {
                 statBadge(label: "年度总计", value: "\(total)")
                 statBadge(label: "活跃天数", value: "\(activeDays)")
             }
+        }
+    }
+
+    // MARK: - Tab Switcher
+
+    private var chartTabSwitcher: some View {
+        let bgColor: Color = skin == .threeBody ? Color.white.opacity(0.08) : Color.black.opacity(0.06)
+        return HStack(spacing: 0) {
+            ForEach(ChartMode.allCases, id: \.self) { mode in
+                tabButton(for: mode)
+            }
+        }
+        .padding(3)
+        .background(Capsule().fill(bgColor))
+    }
+
+    private func tabButton(for mode: ChartMode) -> some View {
+        let isSelected = chartMode == mode
+        let textColor: Color = isSelected ? .white : secondaryTextColor
+        let bgFill: Color = isSelected ? accentColor.opacity(0.8) : Color.clear
+        let weight: Font.Weight = isSelected ? .semibold : .regular
+
+        return Button {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                chartMode = mode
+            }
+        } label: {
+            Text(mode.rawValue)
+                .font(.system(size: 14, weight: weight))
+                .foregroundStyle(textColor)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
+                .background(Capsule().fill(bgFill))
         }
     }
 
