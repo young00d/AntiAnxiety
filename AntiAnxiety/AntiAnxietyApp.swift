@@ -1,4 +1,5 @@
 import SwiftUI
+import SwiftData
 
 @main
 struct AntiAnxietyApp: App {
@@ -7,5 +8,6 @@ struct AntiAnxietyApp: App {
             ContentView()
                 .preferredColorScheme(.light)
         }
+        .modelContainer(for: DailyTapRecord.self)
     }
 }

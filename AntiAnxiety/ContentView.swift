@@ -1,8 +1,12 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
     @State private var currentSkin: SkinType = .threeBody
     @State private var showSkinPicker = false
+    @State private var showStats = false
+    @State private var tapManager: TapManager?
 
     var body: some View {
         ZStack {
@@ -10,38 +14,62 @@ struct ContentView: View {
             backgroundForSkin(currentSkin)
                 .ignoresSafeArea()
 
-            VStack {
-                // Top bar with skin switcher
-                HStack {
-                    Spacer()
-                    Button {
-                        showSkinPicker = true
-                    } label: {
-                        Image(systemName: "paintpalette")
-                            .font(.title2)
-                            .foregroundStyle(currentSkin == .threeBody ? .white.opacity(0.7) : .brown.opacity(0.6))
+            if let tapManager {
+                VStack {
+                    // Top bar
+                    HStack {
+                        Button {
+                            showStats = true
+                        } label: {
+                            Image(systemName: "chart.bar.xaxis")
+                                .font(.title2)
+                                .foregroundStyle(currentSkin == .threeBody ? .white.opacity(0.7) : .brown.opacity(0.6))
+                        }
+                        .padding(.leading, 24)
+
+                        Spacer()
+
+                        Button {
+                            showSkinPicker = true
+                        } label: {
+                            Image(systemName: "paintpalette")
+                                .font(.title2)
+                                .foregroundStyle(currentSkin == .threeBody ? .white.opacity(0.7) : .brown.opacity(0.6))
+                        }
+                        .padding(.trailing, 24)
                     }
-                    .padding(.trailing, 24)
+                    .padding(.top, 8)
+
+                    Spacer()
+
+                    // Main content area
+                    switch currentSkin {
+                    case .threeBody:
+                        ThreeBodyView(tapManager: tapManager)
+                    case .woodenFish:
+                        WoodenFishView(tapManager: tapManager)
+                    }
+
+                    Spacer()
                 }
-                .padding(.top, 8)
-
-                Spacer()
-
-                // Main content area
-                switch currentSkin {
-                case .threeBody:
-                    ThreeBodyView()
-                case .woodenFish:
-                    WoodenFishView()
-                }
-
-                Spacer()
+            }
+        }
+        .onAppear {
+            if tapManager == nil {
+                tapManager = TapManager(modelContext: modelContext)
             }
         }
         .sheet(isPresented: $showSkinPicker) {
             SkinPickerSheet(currentSkin: $currentSkin)
                 .presentationDetents([.height(280)])
                 .presentationDragIndicator(.visible)
+        }
+        .sheet(isPresented: $showStats) {
+            if let tapManager {
+                StatsView(tapManager: tapManager)
+                    .presentationDetents([.large])
+                    .presentationDragIndicator(.visible)
+            }
         }
     }
 
@@ -106,7 +134,7 @@ struct SkinPickerSheet: View {
                         .font(.system(size: 36))
                         .foregroundStyle(.cyan)
                 } else {
-                    Text("🪵")
+                    Text("\u{1FAB5}")
                         .font(.system(size: 40))
                 }
             }
@@ -131,4 +159,5 @@ struct SkinPickerSheet: View {
 
 #Preview {
     ContentView()
+        .modelContainer(for: DailyTapRecord.self, inMemory: true)
 }

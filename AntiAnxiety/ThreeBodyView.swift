@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ThreeBodyView: View {
-    @State private var tapCount: Int = 0
+    var tapManager: TapManager
     @State private var isPressed = false
     @State private var showSignalEffect = false
     @State private var signalRings: [SignalRing] = []
@@ -29,14 +29,9 @@ struct ThreeBodyView: View {
                     .foregroundStyle(.cyan.opacity(0.5))
                     .tracking(4)
 
-                Text("发射次数")
+                Text("今日发射")
                     .font(.system(size: 13))
                     .foregroundStyle(.white.opacity(0.4))
-
-                Text("\(tapCount)")
-                    .font(.system(size: 48, weight: .thin, design: .monospaced))
-                    .foregroundStyle(.cyan)
-                    .contentTransition(.numericText())
             }
 
             // The button
@@ -76,15 +71,17 @@ struct ThreeBodyView: View {
                     .shadow(color: .cyan.opacity(isPressed ? 0.8 : 0.3), radius: isPressed ? 30 : 15)
                     .scaleEffect(isPressed ? 0.92 : 1.0)
 
-                // Button label
-                VStack(spacing: 6) {
-                    Image(systemName: "antenna.radiowaves.left.and.right")
-                        .font(.system(size: 28))
+                // Button label — today's count prominently
+                VStack(spacing: 4) {
+                    Text("\(tapManager.todayCount)")
+                        .font(.system(size: 40, weight: .thin, design: .monospaced))
+                        .contentTransition(.numericText())
                     Text("发 射")
-                        .font(.system(size: 16, weight: .medium))
-                        .tracking(8)
+                        .font(.system(size: 11, weight: .medium))
+                        .tracking(4)
                 }
                 .foregroundStyle(.white.opacity(0.9))
+                .scaleEffect(isPressed ? 0.92 : 1.0)
             }
             .onTapGesture {
                 performTap()
@@ -104,9 +101,9 @@ struct ThreeBodyView: View {
         // Haptic
         HapticManager.heavyTap()
 
-        // Count
+        // Count — persistent
         withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-            tapCount += 1
+            tapManager.increment()
         }
 
         // Press animation
@@ -147,6 +144,7 @@ struct SignalRing: Identifiable {
     ZStack {
         Color(red: 0.02, green: 0.02, blue: 0.08)
             .ignoresSafeArea()
-        ThreeBodyView()
+        ThreeBodyView(tapManager: .preview)
     }
+    .modelContainer(for: DailyTapRecord.self, inMemory: true)
 }

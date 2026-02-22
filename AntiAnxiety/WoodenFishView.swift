@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct WoodenFishView: View {
-    @State private var meritCount: Int = 0
+    var tapManager: TapManager
     @State private var isPressed = false
     @State private var floatingTexts: [FloatingText] = []
 
@@ -26,10 +26,9 @@ struct WoodenFishView: View {
                     .font(.system(size: 14))
                     .foregroundStyle(.brown.opacity(0.5))
 
-                Text("\(meritCount)")
-                    .font(.system(size: 48, weight: .light, design: .serif))
-                    .foregroundStyle(.brown.opacity(0.8))
-                    .contentTransition(.numericText())
+                Text("今日修行")
+                    .font(.system(size: 13))
+                    .foregroundStyle(.brown.opacity(0.4))
             }
 
             // Wooden fish button
@@ -78,11 +77,17 @@ struct WoodenFishView: View {
                     }
                     .scaleEffect(isPressed ? 0.93 : 1.0)
 
-                    // Center symbol
-                    Text("卍")
-                        .font(.system(size: 32, weight: .ultraLight))
-                        .foregroundStyle(.white.opacity(0.15))
-                        .scaleEffect(isPressed ? 0.93 : 1.0)
+                    // Center — today's count prominently
+                    VStack(spacing: 2) {
+                        Text("\(tapManager.todayCount)")
+                            .font(.system(size: 36, weight: .light, design: .serif))
+                            .foregroundStyle(.white.opacity(0.7))
+                            .contentTransition(.numericText())
+                        Text("功德")
+                            .font(.system(size: 10))
+                            .foregroundStyle(.white.opacity(0.35))
+                    }
+                    .scaleEffect(isPressed ? 0.93 : 1.0)
                 }
             }
             .frame(height: 220)
@@ -101,9 +106,9 @@ struct WoodenFishView: View {
         // Haptic - wooden knock feel
         HapticManager.woodenFishTap()
 
-        // Increment
+        // Increment — persistent
         withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-            meritCount += 1
+            tapManager.increment()
         }
 
         // Press animation
@@ -145,6 +150,7 @@ struct FloatingText: Identifiable {
     ZStack {
         Color(red: 0.96, green: 0.93, blue: 0.88)
             .ignoresSafeArea()
-        WoodenFishView()
+        WoodenFishView(tapManager: .preview)
     }
+    .modelContainer(for: DailyTapRecord.self, inMemory: true)
 }

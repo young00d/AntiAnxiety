@@ -15,6 +15,11 @@
 		AA000006 /* WoodenFishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000017 /* WoodenFishView.swift */; };
 		AA000007 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000018 /* HapticManager.swift */; };
 		AA000008 /* SkinType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000019 /* SkinType.swift */; };
+		AA000031 /* DailyTapRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000032 /* DailyTapRecord.swift */; };
+		AA000033 /* TapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000034 /* TapManager.swift */; };
+		AA000035 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000036 /* CalendarView.swift */; };
+		AA000037 /* TrendChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000038 /* TrendChartView.swift */; };
+		AA000039 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00003A /* StatsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +32,11 @@
 		AA000017 /* WoodenFishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WoodenFishView.swift; sourceTree = "<group>"; };
 		AA000018 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		AA000019 /* SkinType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinType.swift; sourceTree = "<group>"; };
+		AA000032 /* DailyTapRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTapRecord.swift; sourceTree = "<group>"; };
+		AA000034 /* TapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapManager.swift; sourceTree = "<group>"; };
+		AA000036 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		AA000038 /* TrendChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendChartView.swift; sourceTree = "<group>"; };
+		AA00003A /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +67,11 @@
 				AA000017 /* WoodenFishView.swift */,
 				AA000018 /* HapticManager.swift */,
 				AA000019 /* SkinType.swift */,
+				AA000032 /* DailyTapRecord.swift */,
+				AA000034 /* TapManager.swift */,
+				AA000036 /* CalendarView.swift */,
+				AA000038 /* TrendChartView.swift */,
+				AA00003A /* StatsView.swift */,
 				AA000013 /* Assets.xcassets */,
 				AA000014 /* Preview Content */,
 			);
@@ -156,6 +171,11 @@
 				AA000006 /* WoodenFishView.swift in Sources */,
 				AA000007 /* HapticManager.swift in Sources */,
 				AA000008 /* SkinType.swift in Sources */,
+				AA000031 /* DailyTapRecord.swift in Sources */,
+				AA000033 /* TapManager.swift in Sources */,
+				AA000035 /* CalendarView.swift in Sources */,
+				AA000037 /* TrendChartView.swift in Sources */,
+				AA000039 /* StatsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
