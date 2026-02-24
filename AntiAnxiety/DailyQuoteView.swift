@@ -1,0 +1,195 @@
+import SwiftUI
+
+struct DailyQuoteView: View {
+    let quote: String
+    let skin: SkinType
+    @Environment(\.dismiss) private var dismiss
+
+    var body: some View {
+        ZStack {
+            backgroundView
+                .ignoresSafeArea()
+
+            VStack(spacing: 28) {
+                Spacer()
+
+                // Decorative top
+                decorativeHeader
+
+                // Quote text
+                Text(quote)
+                    .font(.system(size: 17, weight: .regular, design: fontDesign))
+                    .foregroundStyle(quoteTextColor)
+                    .multilineTextAlignment(.center)
+                    .lineSpacing(8)
+                    .padding(.horizontal, 36)
+
+                // Decorative bottom
+                decorativeFooter
+
+                // Label
+                Text("— 今日寄语 —")
+                    .font(.system(size: 12, design: fontDesign))
+                    .foregroundStyle(secondaryColor)
+
+                Spacer()
+                Spacer()
+            }
+        }
+        .onTapGesture {
+            dismiss()
+        }
+    }
+
+    // MARK: - Skin Properties
+
+    private var fontDesign: Font.Design {
+        switch skin {
+        case .threeBody: return .monospaced
+        case .woodenFish: return .serif
+        case .cat: return .rounded
+        }
+    }
+
+    private var quoteTextColor: Color {
+        switch skin {
+        case .threeBody: return .cyan.opacity(0.9)
+        case .woodenFish: return .brown.opacity(0.8)
+        case .cat: return Color(red: 0.55, green: 0.35, blue: 0.32)
+        }
+    }
+
+    private var secondaryColor: Color {
+        switch skin {
+        case .threeBody: return .cyan.opacity(0.35)
+        case .woodenFish: return .brown.opacity(0.4)
+        case .cat: return Color(red: 0.75, green: 0.50, blue: 0.48).opacity(0.5)
+        }
+    }
+
+    private var accentColor: Color {
+        switch skin {
+        case .threeBody: return .cyan
+        case .woodenFish: return .brown
+        case .cat: return Color(red: 0.80, green: 0.45, blue: 0.42)
+        }
+    }
+
+    // MARK: - Background
+
+    @ViewBuilder
+    private var backgroundView: some View {
+        switch skin {
+        case .threeBody:
+            LinearGradient(
+                colors: [
+                    Color(red: 0.02, green: 0.02, blue: 0.08),
+                    Color(red: 0.05, green: 0.05, blue: 0.15),
+                    Color(red: 0.02, green: 0.02, blue: 0.08)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        case .woodenFish:
+            LinearGradient(
+                colors: [
+                    Color(red: 0.96, green: 0.93, blue: 0.88),
+                    Color(red: 0.92, green: 0.88, blue: 0.82)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        case .cat:
+            LinearGradient(
+                colors: [
+                    Color(red: 1.0, green: 0.96, blue: 0.94),
+                    Color(red: 0.98, green: 0.92, blue: 0.90)
+                ],
+                startPoint: .top,
+                endPoint: .bottom
+            )
+        }
+    }
+
+    // MARK: - Decorative Elements
+
+    @ViewBuilder
+    private var decorativeHeader: some View {
+        switch skin {
+        case .threeBody:
+            // Terminal-style brackets
+            HStack(spacing: 8) {
+                Rectangle().fill(.cyan.opacity(0.3)).frame(width: 20, height: 1)
+                Text("//")
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(.cyan.opacity(0.3))
+                Text("DAILY BROADCAST")
+                    .font(.system(size: 10, weight: .medium, design: .monospaced))
+                    .foregroundStyle(.cyan.opacity(0.3))
+                    .tracking(2)
+                Text("//")
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(.cyan.opacity(0.3))
+                Rectangle().fill(.cyan.opacity(0.3)).frame(width: 20, height: 1)
+            }
+
+        case .woodenFish:
+            // Zen divider — line with lotus
+            HStack(spacing: 12) {
+                Rectangle().fill(.brown.opacity(0.2)).frame(width: 40, height: 0.5)
+                Text("☸")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.brown.opacity(0.3))
+                Rectangle().fill(.brown.opacity(0.2)).frame(width: 40, height: 0.5)
+            }
+
+        case .cat:
+            // Paw prints
+            HStack(spacing: 16) {
+                PawPrintView(size: 12, color: Color(red: 0.80, green: 0.60, blue: 0.55).opacity(0.3))
+                PawPrintView(size: 14, color: Color(red: 0.80, green: 0.60, blue: 0.55).opacity(0.4))
+                PawPrintView(size: 12, color: Color(red: 0.80, green: 0.60, blue: 0.55).opacity(0.3))
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var decorativeFooter: some View {
+        switch skin {
+        case .threeBody:
+            HStack(spacing: 4) {
+                Text("[")
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(.cyan.opacity(0.2))
+                Rectangle().fill(.cyan.opacity(0.15)).frame(width: 60, height: 1)
+                Text("]")
+                    .font(.system(size: 11, design: .monospaced))
+                    .foregroundStyle(.cyan.opacity(0.2))
+            }
+
+        case .woodenFish:
+            HStack(spacing: 12) {
+                Rectangle().fill(.brown.opacity(0.15)).frame(width: 30, height: 0.5)
+                Circle().fill(.brown.opacity(0.15)).frame(width: 4, height: 4)
+                Rectangle().fill(.brown.opacity(0.15)).frame(width: 30, height: 0.5)
+            }
+
+        case .cat:
+            HStack(spacing: 8) {
+                Image(systemName: "heart.fill")
+                    .font(.system(size: 8))
+                    .foregroundStyle(Color(red: 0.80, green: 0.45, blue: 0.42).opacity(0.25))
+                Rectangle()
+                    .fill(Color(red: 0.80, green: 0.60, blue: 0.55).opacity(0.15))
+                    .frame(width: 40, height: 0.5)
+                Image(systemName: "heart.fill")
+                    .font(.system(size: 8))
+                    .foregroundStyle(Color(red: 0.80, green: 0.45, blue: 0.42).opacity(0.25))
+            }
+        }
+    }
+}
+
+#Preview {
+    DailyQuoteView(quote: "一切有为法，如梦幻泡影，如露亦如电，应作如是观。", skin: .woodenFish)
+}

@@ -20,6 +20,9 @@
 		AA000035 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000036 /* CalendarView.swift */; };
 		AA000037 /* TrendChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000038 /* TrendChartView.swift */; };
 		AA000039 /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA00003A /* StatsView.swift */; };
+		AA000040 /* CatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000041 /* CatView.swift */; };
+		AA000042 /* DailyQuoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000043 /* DailyQuoteManager.swift */; };
+		AA000044 /* DailyQuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000045 /* DailyQuoteView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,9 @@
 		AA000036 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		AA000038 /* TrendChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendChartView.swift; sourceTree = "<group>"; };
 		AA00003A /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		AA000041 /* CatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatView.swift; sourceTree = "<group>"; };
+		AA000043 /* DailyQuoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuoteManager.swift; sourceTree = "<group>"; };
+		AA000045 /* DailyQuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuoteView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +78,9 @@
 				AA000036 /* CalendarView.swift */,
 				AA000038 /* TrendChartView.swift */,
 				AA00003A /* StatsView.swift */,
+				AA000041 /* CatView.swift */,
+				AA000043 /* DailyQuoteManager.swift */,
+				AA000045 /* DailyQuoteView.swift */,
 				AA000013 /* Assets.xcassets */,
 				AA000014 /* Preview Content */,
 			);
@@ -176,6 +185,9 @@
 				AA000035 /* CalendarView.swift in Sources */,
 				AA000037 /* TrendChartView.swift in Sources */,
 				AA000039 /* StatsView.swift in Sources */,
+				AA000040 /* CatView.swift in Sources */,
+				AA000042 /* DailyQuoteManager.swift in Sources */,
+				AA000044 /* DailyQuoteView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

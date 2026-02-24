@@ -14,7 +14,11 @@ struct TrendChartView: View {
     }
 
     private var accentColor: Color {
-        skin == .threeBody ? .cyan : .brown
+        switch skin {
+        case .threeBody: return .cyan
+        case .woodenFish: return .brown
+        case .cat: return Color(red: 0.80, green: 0.45, blue: 0.42)
+        }
     }
 
     private var textColor: Color {

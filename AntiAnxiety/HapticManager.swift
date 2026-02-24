@@ -24,4 +24,10 @@ struct HapticManager {
         generator.prepare()
         generator.impactOccurred()
     }
+
+    static func catTap() {
+        let generator = UIImpactFeedbackGenerator(style: .soft)
+        generator.prepare()
+        generator.impactOccurred()
+    }
 }
