@@ -42,7 +42,7 @@ struct StatsView: View {
 
     private var statsColor: Color {
         switch skin {
-        case .threeBody: return .cyan
+        case .threeBody: return Color(red: 0.41, green: 0.39, blue: 0.36)
         case .woodenFish: return .brown.opacity(0.8)
         case .cat: return Color(red: 0.80, green: 0.45, blue: 0.42)
         }
@@ -52,15 +52,7 @@ struct StatsView: View {
     func backgroundForSkin(_ skin: SkinType) -> some View {
         switch skin {
         case .threeBody:
-            LinearGradient(
-                colors: [
-                    Color(red: 0.02, green: 0.02, blue: 0.08),
-                    Color(red: 0.05, green: 0.05, blue: 0.15),
-                    Color(red: 0.02, green: 0.02, blue: 0.08)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            Color(red: 0.96, green: 0.93, blue: 0.90)
         case .woodenFish:
             LinearGradient(
                 colors: [

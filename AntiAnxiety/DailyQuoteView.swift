@@ -53,7 +53,7 @@ struct DailyQuoteView: View {
 
     private var quoteTextColor: Color {
         switch skin {
-        case .threeBody: return .cyan.opacity(0.9)
+        case .threeBody: return Color(red: 0.41, green: 0.39, blue: 0.36).opacity(0.9)
         case .woodenFish: return .brown.opacity(0.8)
         case .cat: return Color(red: 0.55, green: 0.35, blue: 0.32)
         }
@@ -61,7 +61,7 @@ struct DailyQuoteView: View {
 
     private var secondaryColor: Color {
         switch skin {
-        case .threeBody: return .cyan.opacity(0.35)
+        case .threeBody: return Color(red: 0.41, green: 0.39, blue: 0.36).opacity(0.4)
         case .woodenFish: return .brown.opacity(0.4)
         case .cat: return Color(red: 0.75, green: 0.50, blue: 0.48).opacity(0.5)
         }
@@ -69,7 +69,7 @@ struct DailyQuoteView: View {
 
     private var accentColor: Color {
         switch skin {
-        case .threeBody: return .cyan
+        case .threeBody: return Color(red: 0.87, green: 0.255, blue: 0.255)
         case .woodenFish: return .brown
         case .cat: return Color(red: 0.80, green: 0.45, blue: 0.42)
         }
@@ -81,15 +81,7 @@ struct DailyQuoteView: View {
     private var backgroundView: some View {
         switch skin {
         case .threeBody:
-            LinearGradient(
-                colors: [
-                    Color(red: 0.02, green: 0.02, blue: 0.08),
-                    Color(red: 0.05, green: 0.05, blue: 0.15),
-                    Color(red: 0.02, green: 0.02, blue: 0.08)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            Color(red: 0.96, green: 0.93, blue: 0.90)
         case .woodenFish:
             LinearGradient(
                 colors: [
@@ -119,18 +111,18 @@ struct DailyQuoteView: View {
         case .threeBody:
             // Terminal-style brackets
             HStack(spacing: 8) {
-                Rectangle().fill(.cyan.opacity(0.3)).frame(width: 20, height: 1)
+                Rectangle().fill(secondaryColor).frame(width: 20, height: 1)
                 Text("//")
-                    .font(.system(size: 11, design: .monospaced))
-                    .foregroundStyle(.cyan.opacity(0.3))
+                    .font(.custom("CourierPrime-Regular", size: 11))
+                    .foregroundStyle(secondaryColor)
                 Text("DAILY BROADCAST")
-                    .font(.system(size: 10, weight: .medium, design: .monospaced))
-                    .foregroundStyle(.cyan.opacity(0.3))
+                    .font(.custom("CourierPrime-Bold", size: 10))
+                    .foregroundStyle(secondaryColor)
                     .tracking(2)
                 Text("//")
-                    .font(.system(size: 11, design: .monospaced))
-                    .foregroundStyle(.cyan.opacity(0.3))
-                Rectangle().fill(.cyan.opacity(0.3)).frame(width: 20, height: 1)
+                    .font(.custom("CourierPrime-Regular", size: 11))
+                    .foregroundStyle(secondaryColor)
+                Rectangle().fill(secondaryColor).frame(width: 20, height: 1)
             }
 
         case .woodenFish:
@@ -159,12 +151,12 @@ struct DailyQuoteView: View {
         case .threeBody:
             HStack(spacing: 4) {
                 Text("[")
-                    .font(.system(size: 11, design: .monospaced))
-                    .foregroundStyle(.cyan.opacity(0.2))
-                Rectangle().fill(.cyan.opacity(0.15)).frame(width: 60, height: 1)
+                    .font(.custom("CourierPrime-Regular", size: 11))
+                    .foregroundStyle(secondaryColor.opacity(0.6))
+                Rectangle().fill(secondaryColor.opacity(0.4)).frame(width: 60, height: 1)
                 Text("]")
-                    .font(.system(size: 11, design: .monospaced))
-                    .foregroundStyle(.cyan.opacity(0.2))
+                    .font(.custom("CourierPrime-Regular", size: 11))
+                    .foregroundStyle(secondaryColor.opacity(0.6))
             }
 
         case .woodenFish:

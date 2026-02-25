@@ -15,18 +15,18 @@ struct TrendChartView: View {
 
     private var accentColor: Color {
         switch skin {
-        case .threeBody: return .cyan
+        case .threeBody: return Color(red: 0.87, green: 0.255, blue: 0.255) // Red Shore red
         case .woodenFish: return .brown
         case .cat: return Color(red: 0.80, green: 0.45, blue: 0.42)
         }
     }
 
     private var textColor: Color {
-        skin == .threeBody ? .white : .primary
+        .primary
     }
 
     private var secondaryTextColor: Color {
-        skin == .threeBody ? .white.opacity(0.5) : .secondary
+        .secondary
     }
 
     var body: some View {
@@ -231,7 +231,7 @@ struct TrendChartView: View {
     // MARK: - Tab Switcher
 
     private var chartTabSwitcher: some View {
-        let bgColor: Color = skin == .threeBody ? Color.white.opacity(0.08) : Color.black.opacity(0.06)
+        let bgColor: Color = Color.black.opacity(0.06)
         return HStack(spacing: 0) {
             ForEach(ChartMode.allCases, id: \.self) { mode in
                 tabButton(for: mode)

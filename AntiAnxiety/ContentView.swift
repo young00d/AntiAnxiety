@@ -12,7 +12,7 @@ struct ContentView: View {
 
     private var iconColor: Color {
         switch currentSkin {
-        case .threeBody: return .white.opacity(0.7)
+        case .threeBody: return Color(red: 0.41, green: 0.39, blue: 0.36).opacity(0.6)
         case .woodenFish: return .brown.opacity(0.6)
         case .cat: return Color(red: 0.75, green: 0.50, blue: 0.48).opacity(0.6)
         }
@@ -111,15 +111,7 @@ struct ContentView: View {
     func backgroundForSkin(_ skin: SkinType) -> some View {
         switch skin {
         case .threeBody:
-            LinearGradient(
-                colors: [
-                    Color(red: 0.02, green: 0.02, blue: 0.08),
-                    Color(red: 0.05, green: 0.05, blue: 0.15),
-                    Color(red: 0.02, green: 0.02, blue: 0.08)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            Color(red: 0.96, green: 0.93, blue: 0.90)
         case .woodenFish:
             LinearGradient(
                 colors: [
@@ -192,7 +184,7 @@ struct SkinPickerSheet: View {
 
     private func cardBackground(for skin: SkinType) -> Color {
         switch skin {
-        case .threeBody: return Color(red: 0.05, green: 0.05, blue: 0.15)
+        case .threeBody: return Color(red: 0.96, green: 0.93, blue: 0.90)
         case .woodenFish: return Color(red: 0.92, green: 0.88, blue: 0.82)
         case .cat: return Color(red: 1.0, green: 0.94, blue: 0.92)
         }
@@ -204,7 +196,7 @@ struct SkinPickerSheet: View {
         case .threeBody:
             Image(systemName: "antenna.radiowaves.left.and.right")
                 .font(.system(size: 32))
-                .foregroundStyle(.cyan)
+                .foregroundStyle(Color(red: 0.87, green: 0.255, blue: 0.255))
         case .woodenFish:
             Text("\u{1FAB5}")
                 .font(.system(size: 36))

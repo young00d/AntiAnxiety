@@ -23,6 +23,9 @@
 		AA000040 /* CatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000041 /* CatView.swift */; };
 		AA000042 /* DailyQuoteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000043 /* DailyQuoteManager.swift */; };
 		AA000044 /* DailyQuoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000045 /* DailyQuoteView.swift */; };
+		AA000050 /* DigitalNumbers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA000051 /* DigitalNumbers-Regular.ttf */; };
+		AA000052 /* CourierPrime-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA000053 /* CourierPrime-Regular.ttf */; };
+		AA000054 /* CourierPrime-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA000055 /* CourierPrime-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +46,9 @@
 		AA000041 /* CatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatView.swift; sourceTree = "<group>"; };
 		AA000043 /* DailyQuoteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuoteManager.swift; sourceTree = "<group>"; };
 		AA000045 /* DailyQuoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyQuoteView.swift; sourceTree = "<group>"; };
+		AA000051 /* DigitalNumbers-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DigitalNumbers-Regular.ttf"; sourceTree = "<group>"; };
+		AA000053 /* CourierPrime-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CourierPrime-Regular.ttf"; sourceTree = "<group>"; };
+		AA000055 /* CourierPrime-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CourierPrime-Bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +87,21 @@
 				AA000041 /* CatView.swift */,
 				AA000043 /* DailyQuoteManager.swift */,
 				AA000045 /* DailyQuoteView.swift */,
+				AA000056 /* Fonts */,
 				AA000013 /* Assets.xcassets */,
 				AA000014 /* Preview Content */,
 			);
 			path = AntiAnxiety;
+			sourceTree = "<group>";
+		};
+		AA000056 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				AA000051 /* DigitalNumbers-Regular.ttf */,
+				AA000053 /* CourierPrime-Regular.ttf */,
+				AA000055 /* CourierPrime-Bold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		AA000022 /* Products */ = {
@@ -164,6 +181,9 @@
 			files = (
 				AA000004 /* Preview Assets.xcassets in Resources */,
 				AA000003 /* Assets.xcassets in Resources */,
+				AA000050 /* DigitalNumbers-Regular.ttf in Resources */,
+				AA000052 /* CourierPrime-Regular.ttf in Resources */,
+				AA000054 /* CourierPrime-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +343,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"AntiAnxiety/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AntiAnxiety/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "静心";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -354,6 +375,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"AntiAnxiety/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AntiAnxiety/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "静心";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
