@@ -25,41 +25,7 @@ struct ContentView: View {
                 .ignoresSafeArea()
 
             if let tapManager {
-                VStack {
-                    // Top bar
-                    HStack {
-                        Button {
-                            showStats = true
-                        } label: {
-                            Image(systemName: "chart.bar.xaxis")
-                                .font(.title2)
-                                .foregroundStyle(iconColor)
-                        }
-                        .padding(.leading, 24)
-
-                        Spacer()
-
-                        Button {
-                            showDailyQuote = true
-                        } label: {
-                            Image(systemName: "text.quote")
-                                .font(.title2)
-                                .foregroundStyle(iconColor)
-                        }
-
-                        Spacer()
-
-                        Button {
-                            showSkinPicker = true
-                        } label: {
-                            Image(systemName: "paintpalette")
-                                .font(.title2)
-                                .foregroundStyle(iconColor)
-                        }
-                        .padding(.trailing, 24)
-                    }
-                    .padding(.top, 8)
-
+                VStack(spacing: 0) {
                     Spacer()
 
                     // Main content area
@@ -73,6 +39,40 @@ struct ContentView: View {
                     }
 
                     Spacer()
+
+                    // Bottom bar
+                    HStack {
+                        Button {
+                            showDailyQuote = true
+                        } label: {
+                            Image(systemName: "text.quote")
+                                .font(.system(size: 20, weight: .light))
+                                .foregroundStyle(iconColor)
+                        }
+                        .padding(.leading, 24)
+
+                        Spacer()
+
+                        Button {
+                            showStats = true
+                        } label: {
+                            Image(systemName: "chart.xyaxis.line")
+                                .font(.system(size: 20, weight: .light))
+                                .foregroundStyle(iconColor)
+                        }
+
+                        Spacer()
+
+                        Button {
+                            showSkinPicker = true
+                        } label: {
+                            Image(systemName: "tshirt")
+                                .font(.system(size: 20, weight: .light))
+                                .foregroundStyle(iconColor)
+                        }
+                        .padding(.trailing, 24)
+                    }
+                    .padding(.bottom, 8)
                 }
             }
         }
