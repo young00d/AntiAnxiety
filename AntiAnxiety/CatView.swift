@@ -1,72 +1,56 @@
 import SwiftUI
 
-// MARK: - Cat Head Shape (Bezier)
-struct CatHeadShape: Shape {
+// MARK: - Cat Paw Pad Shape (贝塞尔曲线猫爪掌心)
+struct CatPawPadShape: Shape {
     func path(in rect: CGRect) -> Path {
         let w = rect.width
         let h = rect.height
         var path = Path()
 
-        // Start from left ear base
-        path.move(to: CGPoint(x: w * 0.18, y: h * 0.32))
+        // Main palm pad — a wide heart-like / rounded trapezoid shape
+        // Start from bottom center
+        path.move(to: CGPoint(x: w * 0.50, y: h * 0.98))
 
-        // Left ear — pointed triangle with slight curve
+        // Bottom center to lower-left
         path.addCurve(
-            to: CGPoint(x: w * 0.12, y: h * 0.0),
-            control1: CGPoint(x: w * 0.12, y: h * 0.20),
-            control2: CGPoint(x: w * 0.08, y: h * 0.05)
-        )
-        path.addCurve(
-            to: CGPoint(x: w * 0.35, y: h * 0.18),
-            control1: CGPoint(x: w * 0.18, y: h * 0.0),
-            control2: CGPoint(x: w * 0.28, y: h * 0.10)
+            to: CGPoint(x: w * 0.08, y: h * 0.62),
+            control1: CGPoint(x: w * 0.28, y: h * 0.98),
+            control2: CGPoint(x: w * 0.06, y: h * 0.82)
         )
 
-        // Top of head
+        // Left side up to top-left
         path.addCurve(
-            to: CGPoint(x: w * 0.65, y: h * 0.18),
-            control1: CGPoint(x: w * 0.42, y: h * 0.12),
-            control2: CGPoint(x: w * 0.58, y: h * 0.12)
+            to: CGPoint(x: w * 0.22, y: h * 0.35),
+            control1: CGPoint(x: w * 0.08, y: h * 0.48),
+            control2: CGPoint(x: w * 0.14, y: h * 0.38)
         )
 
-        // Right ear
+        // Top-left dip (between left beans and palm)
         path.addCurve(
-            to: CGPoint(x: w * 0.88, y: h * 0.0),
-            control1: CGPoint(x: w * 0.72, y: h * 0.10),
-            control2: CGPoint(x: w * 0.82, y: h * 0.0)
-        )
-        path.addCurve(
-            to: CGPoint(x: w * 0.82, y: h * 0.32),
-            control1: CGPoint(x: w * 0.92, y: h * 0.05),
-            control2: CGPoint(x: w * 0.88, y: h * 0.20)
+            to: CGPoint(x: w * 0.50, y: h * 0.32),
+            control1: CGPoint(x: w * 0.32, y: h * 0.30),
+            control2: CGPoint(x: w * 0.40, y: h * 0.30)
         )
 
-        // Right cheek — plump
+        // Top-right dip
         path.addCurve(
-            to: CGPoint(x: w * 0.88, y: h * 0.60),
-            control1: CGPoint(x: w * 0.96, y: h * 0.40),
-            control2: CGPoint(x: w * 0.98, y: h * 0.52)
+            to: CGPoint(x: w * 0.78, y: h * 0.35),
+            control1: CGPoint(x: w * 0.60, y: h * 0.30),
+            control2: CGPoint(x: w * 0.68, y: h * 0.30)
         )
 
-        // Right lower cheek to chin
+        // Right side down
         path.addCurve(
-            to: CGPoint(x: w * 0.5, y: h * 0.92),
-            control1: CGPoint(x: w * 0.85, y: h * 0.78),
-            control2: CGPoint(x: w * 0.68, y: h * 0.90)
+            to: CGPoint(x: w * 0.92, y: h * 0.62),
+            control1: CGPoint(x: w * 0.86, y: h * 0.38),
+            control2: CGPoint(x: w * 0.92, y: h * 0.48)
         )
 
-        // Chin to left lower cheek
+        // Lower-right back to bottom center
         path.addCurve(
-            to: CGPoint(x: w * 0.12, y: h * 0.60),
-            control1: CGPoint(x: w * 0.32, y: h * 0.90),
-            control2: CGPoint(x: w * 0.15, y: h * 0.78)
-        )
-
-        // Left cheek back up to start
-        path.addCurve(
-            to: CGPoint(x: w * 0.18, y: h * 0.32),
-            control1: CGPoint(x: w * 0.02, y: h * 0.52),
-            control2: CGPoint(x: w * 0.04, y: h * 0.40)
+            to: CGPoint(x: w * 0.50, y: h * 0.98),
+            control1: CGPoint(x: w * 0.94, y: h * 0.82),
+            control2: CGPoint(x: w * 0.72, y: h * 0.98)
         )
 
         path.closeSubpath()
@@ -74,108 +58,159 @@ struct CatHeadShape: Shape {
     }
 }
 
-// MARK: - Cat Face Details
-struct CatFaceView: View {
+// MARK: - Toe Bean Shape (单个肉垫豆豆)
+struct ToeBeanShape: Shape {
+    func path(in rect: CGRect) -> Path {
+        let w = rect.width
+        let h = rect.height
+        var path = Path()
+
+        // Slightly elongated oval, wider at bottom
+        path.move(to: CGPoint(x: w * 0.50, y: 0))
+
+        path.addCurve(
+            to: CGPoint(x: w, y: h * 0.45),
+            control1: CGPoint(x: w * 0.82, y: 0),
+            control2: CGPoint(x: w, y: h * 0.18)
+        )
+
+        path.addCurve(
+            to: CGPoint(x: w * 0.50, y: h),
+            control1: CGPoint(x: w, y: h * 0.75),
+            control2: CGPoint(x: w * 0.80, y: h)
+        )
+
+        path.addCurve(
+            to: CGPoint(x: 0, y: h * 0.45),
+            control1: CGPoint(x: w * 0.20, y: h),
+            control2: CGPoint(x: 0, y: h * 0.75)
+        )
+
+        path.addCurve(
+            to: CGPoint(x: w * 0.50, y: 0),
+            control1: CGPoint(x: 0, y: h * 0.18),
+            control2: CGPoint(x: w * 0.18, y: 0)
+        )
+
+        path.closeSubpath()
+        return path
+    }
+}
+
+// MARK: - Full Cat Paw Button (大猫爪按钮)
+struct CatPawButtonView: View {
+    var isPressed: Bool
+
+    private let padColor = Color(red: 0.92, green: 0.68, blue: 0.65)
+    private let padDark = Color(red: 0.82, green: 0.55, blue: 0.52)
+    private let beanColor = Color(red: 0.95, green: 0.72, blue: 0.70)
+    private let beanDark = Color(red: 0.85, green: 0.58, blue: 0.55)
+    private let furColor = Color(red: 0.95, green: 0.88, blue: 0.80)
+    private let furDark = Color(red: 0.85, green: 0.75, blue: 0.65)
+
     var body: some View {
         ZStack {
-            // Eyes
-            HStack(spacing: 32) {
-                catEye
-                catEye
-            }
-            .offset(y: -8)
+            // Fur background circle
+            Circle()
+                .fill(
+                    RadialGradient(
+                        colors: [furColor, furDark],
+                        center: .init(x: 0.45, y: 0.4),
+                        startRadius: 0,
+                        endRadius: 85
+                    )
+                )
+                .frame(width: 165, height: 165)
+                .shadow(color: furDark.opacity(0.4), radius: 12, y: 6)
 
-            // Nose — small inverted triangle
-            Triangle()
-                .fill(Color(red: 0.90, green: 0.65, blue: 0.62))
-                .frame(width: 10, height: 7)
-                .rotationEffect(.degrees(180))
-                .offset(y: 8)
+            // Fur edge highlight
+            Circle()
+                .stroke(
+                    LinearGradient(
+                        colors: [
+                            Color.white.opacity(0.3),
+                            Color.clear,
+                            furDark.opacity(0.2)
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1.5
+                )
+                .frame(width: 165, height: 165)
 
-            // Mouth — simple W shape
-            CatMouthShape()
-                .stroke(Color(red: 0.75, green: 0.50, blue: 0.48).opacity(0.4), lineWidth: 1.2)
-                .frame(width: 20, height: 8)
+            // Main palm pad
+            CatPawPadShape()
+                .fill(
+                    RadialGradient(
+                        colors: [padColor, padDark],
+                        center: .init(x: 0.5, y: 0.55),
+                        startRadius: 0,
+                        endRadius: 50
+                    )
+                )
+                .frame(width: 80, height: 72)
                 .offset(y: 16)
 
-            // Whiskers
-            HStack(spacing: 50) {
-                whiskers(flipped: false)
-                whiskers(flipped: true)
-            }
-            .offset(y: 10)
+            // Palm pad inner highlight
+            CatPawPadShape()
+                .stroke(Color.white.opacity(0.15), lineWidth: 0.8)
+                .frame(width: 80, height: 72)
+                .offset(y: 16)
+
+            // Four toe beans
+            toeBeans
         }
+        .scaleEffect(isPressed ? 0.90 : 1.0)
     }
 
-    private var catEye: some View {
+    private var toeBeans: some View {
         ZStack {
-            // Outer eye
-            Ellipse()
-                .fill(Color(red: 0.35, green: 0.30, blue: 0.25))
-                .frame(width: 16, height: 18)
+            // Left outer bean
+            singleBean
+                .frame(width: 24, height: 28)
+                .rotationEffect(.degrees(20))
+                .offset(x: -38, y: -18)
 
-            // Pupil
-            Ellipse()
-                .fill(Color.black)
-                .frame(width: 8, height: 14)
+            // Left inner bean
+            singleBean
+                .frame(width: 26, height: 30)
+                .rotationEffect(.degrees(8))
+                .offset(x: -14, y: -32)
 
-            // Highlight
-            Circle()
-                .fill(Color.white.opacity(0.8))
-                .frame(width: 5, height: 5)
-                .offset(x: 2, y: -3)
+            // Right inner bean
+            singleBean
+                .frame(width: 26, height: 30)
+                .rotationEffect(.degrees(-8))
+                .offset(x: 14, y: -32)
+
+            // Right outer bean
+            singleBean
+                .frame(width: 24, height: 28)
+                .rotationEffect(.degrees(-20))
+                .offset(x: 38, y: -18)
         }
     }
 
-    private func whiskers(flipped: Bool) -> some View {
-        VStack(spacing: 5) {
-            whiskerLine(angle: -8)
-            whiskerLine(angle: 0)
-            whiskerLine(angle: 8)
+    private var singleBean: some View {
+        ZStack {
+            ToeBeanShape()
+                .fill(
+                    RadialGradient(
+                        colors: [beanColor, beanDark],
+                        center: .init(x: 0.5, y: 0.45),
+                        startRadius: 0,
+                        endRadius: 15
+                    )
+                )
+
+            ToeBeanShape()
+                .stroke(Color.white.opacity(0.12), lineWidth: 0.6)
         }
-        .scaleEffect(x: flipped ? -1 : 1)
-    }
-
-    private func whiskerLine(angle: Double) -> some View {
-        Rectangle()
-            .fill(Color(red: 0.60, green: 0.45, blue: 0.35).opacity(0.3))
-            .frame(width: 22, height: 1)
-            .rotationEffect(.degrees(angle))
     }
 }
 
-// MARK: - Helper Shapes
-struct Triangle: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.closeSubpath()
-        return path
-    }
-}
-
-struct CatMouthShape: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let w = rect.width
-        let h = rect.height
-        // W shape mouth
-        path.move(to: CGPoint(x: 0, y: 0))
-        path.addQuadCurve(
-            to: CGPoint(x: w * 0.5, y: h),
-            control: CGPoint(x: w * 0.25, y: h * 0.6)
-        )
-        path.addQuadCurve(
-            to: CGPoint(x: w, y: 0),
-            control: CGPoint(x: w * 0.75, y: h * 0.6)
-        )
-        return path
-    }
-}
-
-// MARK: - Paw Print Shape
+// MARK: - Paw Print View (小猫爪印装饰，用于上半部分和寄语页)
 struct PawPrintView: View {
     var size: CGFloat = 16
     var color: Color = Color(red: 0.80, green: 0.60, blue: 0.55)
@@ -304,8 +339,8 @@ struct CatView: View {
 
             Spacer()
 
-            // ===== Lower half: Cat button =====
-            catButton
+            // ===== Lower half: Cat paw button =====
+            catPawButton
                 .padding(.bottom, 16)
 
             // Status text
@@ -317,7 +352,7 @@ struct CatView: View {
         }
     }
 
-    private var catButton: some View {
+    private var catPawButton: some View {
         ZStack {
             // Floating texts
             ForEach(floatingTexts) { ft in
@@ -334,67 +369,8 @@ struct CatView: View {
                 .offset(y: 90)
                 .animation(.easeInOut(duration: 0.1), value: isPressed)
 
-            // Cat head body
-            ZStack {
-                // Main cat shape fill
-                CatHeadShape()
-                    .fill(
-                        RadialGradient(
-                            colors: [
-                                Color(red: 0.95, green: 0.82, blue: 0.58),
-                                Color(red: 0.88, green: 0.72, blue: 0.48),
-                                Color(red: 0.78, green: 0.60, blue: 0.35)
-                            ],
-                            center: .init(x: 0.45, y: 0.35),
-                            startRadius: 0,
-                            endRadius: 85
-                        )
-                    )
-                    .frame(width: 155, height: 155)
-                    .shadow(color: Color(red: 0.75, green: 0.55, blue: 0.35).opacity(0.35), radius: 10, y: 5)
-
-                // Edge highlight
-                CatHeadShape()
-                    .stroke(
-                        LinearGradient(
-                            colors: [
-                                Color.white.opacity(0.25),
-                                Color.clear,
-                                Color(red: 0.65, green: 0.45, blue: 0.25).opacity(0.15)
-                            ],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: 1.5
-                    )
-                    .frame(width: 155, height: 155)
-
-                // Inner ear color (pink triangles)
-                CatHeadShape()
-                    .fill(Color(red: 0.95, green: 0.75, blue: 0.72).opacity(0.3))
-                    .frame(width: 155, height: 155)
-                    .mask(
-                        VStack {
-                            HStack(spacing: 60) {
-                                Ellipse()
-                                    .frame(width: 20, height: 28)
-                                    .rotationEffect(.degrees(-10))
-                                Ellipse()
-                                    .frame(width: 20, height: 28)
-                                    .rotationEffect(.degrees(10))
-                            }
-                            .offset(y: 8)
-                            Spacer()
-                        }
-                        .frame(width: 155, height: 155)
-                    )
-
-                // Face details
-                CatFaceView()
-                    .frame(width: 80, height: 60)
-                    .offset(y: 12)
-            }
-            .scaleEffect(isPressed ? 0.92 : 1.0)
+            // Cat paw
+            CatPawButtonView(isPressed: isPressed)
         }
         .frame(height: 210)
         .onTapGesture {
