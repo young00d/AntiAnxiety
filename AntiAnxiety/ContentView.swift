@@ -13,8 +13,23 @@ struct ContentView: View {
     private var iconColor: Color {
         switch currentSkin {
         case .threeBody: return Color(red: 0.41, green: 0.39, blue: 0.36).opacity(0.6)
-        case .woodenFish: return .brown.opacity(0.6)
-        case .cat: return Color(red: 0.75, green: 0.50, blue: 0.48).opacity(0.6)
+        case .woodenFish: return Color(red: 0.243, green: 0.176, blue: 0.122) // #3e2d1f
+        case .cat: return Color(red: 0.282, green: 0.224, blue: 0.169) // #48392b
+        }
+    }
+
+    private var iconFont: Font {
+        switch currentSkin {
+        case .threeBody: return .system(size: 20, weight: .light)
+        case .woodenFish: return .system(size: 18, weight: .bold)
+        case .cat: return .system(size: 18, weight: .bold)
+        }
+    }
+
+    private var iconPadding: CGFloat {
+        switch currentSkin {
+        case .threeBody: return 24
+        case .woodenFish, .cat: return 32
         }
     }
 
@@ -45,19 +60,19 @@ struct ContentView: View {
                         Button {
                             showDailyQuote = true
                         } label: {
-                            Image(systemName: "text.quote")
-                                .font(.system(size: 20, weight: .light))
+                            Image(systemName: "quote.opening")
+                                .font(iconFont)
                                 .foregroundStyle(iconColor)
                         }
-                        .padding(.leading, 24)
+                        .padding(.leading, iconPadding)
 
                         Spacer()
 
                         Button {
                             showStats = true
                         } label: {
-                            Image(systemName: "chart.xyaxis.line")
-                                .font(.system(size: 20, weight: .light))
+                            Image(systemName: "chart.bar.fill")
+                                .font(iconFont)
                                 .foregroundStyle(iconColor)
                         }
 
@@ -66,11 +81,11 @@ struct ContentView: View {
                         Button {
                             showSkinPicker = true
                         } label: {
-                            Image(systemName: "tshirt")
-                                .font(.system(size: 20, weight: .light))
+                            Image(systemName: "tshirt.fill")
+                                .font(iconFont)
                                 .foregroundStyle(iconColor)
                         }
-                        .padding(.trailing, 24)
+                        .padding(.trailing, iconPadding)
                     }
                     .padding(.bottom, 8)
                 }
@@ -111,25 +126,11 @@ struct ContentView: View {
     func backgroundForSkin(_ skin: SkinType) -> some View {
         switch skin {
         case .threeBody:
-            Color(red: 0.96, green: 0.93, blue: 0.90)
+            Color(red: 0.96, green: 0.93, blue: 0.90) // #f4ede5
         case .woodenFish:
-            LinearGradient(
-                colors: [
-                    Color(red: 0.96, green: 0.93, blue: 0.88),
-                    Color(red: 0.92, green: 0.88, blue: 0.82)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            Color(red: 0.749, green: 0.690, blue: 0.612) // #bfb09c
         case .cat:
-            LinearGradient(
-                colors: [
-                    Color(red: 1.0, green: 0.96, blue: 0.94),
-                    Color(red: 0.98, green: 0.92, blue: 0.90)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            Color(red: 0.843, green: 0.737, blue: 0.639) // #d7bca3
         }
     }
 }
@@ -184,9 +185,9 @@ struct SkinPickerSheet: View {
 
     private func cardBackground(for skin: SkinType) -> Color {
         switch skin {
-        case .threeBody: return Color(red: 0.96, green: 0.93, blue: 0.90)
-        case .woodenFish: return Color(red: 0.92, green: 0.88, blue: 0.82)
-        case .cat: return Color(red: 1.0, green: 0.94, blue: 0.92)
+        case .threeBody: return Color(red: 0.96, green: 0.93, blue: 0.90) // #f4ede5
+        case .woodenFish: return Color(red: 0.749, green: 0.690, blue: 0.612) // #bfb09c
+        case .cat: return Color(red: 0.843, green: 0.737, blue: 0.639) // #d7bca3
         }
     }
 

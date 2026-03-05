@@ -26,6 +26,10 @@
 		AA000050 /* DigitalNumbers-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA000051 /* DigitalNumbers-Regular.ttf */; };
 		AA000052 /* CourierPrime-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA000053 /* CourierPrime-Regular.ttf */; };
 		AA000054 /* CourierPrime-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA000055 /* CourierPrime-Bold.ttf */; };
+		AA000061 /* CoveredByYourGrace-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA000060 /* CoveredByYourGrace-Regular.ttf */; };
+		AA000063 /* ZenLoop-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA000062 /* ZenLoop-Regular.ttf */; };
+		AA000065 /* CormorantInfant-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA000064 /* CormorantInfant-Bold.ttf */; };
+		AA000067 /* Devonshire-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA000066 /* Devonshire-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +53,10 @@
 		AA000051 /* DigitalNumbers-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DigitalNumbers-Regular.ttf"; sourceTree = "<group>"; };
 		AA000053 /* CourierPrime-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CourierPrime-Regular.ttf"; sourceTree = "<group>"; };
 		AA000055 /* CourierPrime-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CourierPrime-Bold.ttf"; sourceTree = "<group>"; };
+		AA000060 /* CoveredByYourGrace-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CoveredByYourGrace-Regular.ttf"; sourceTree = "<group>"; };
+		AA000062 /* ZenLoop-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ZenLoop-Regular.ttf"; sourceTree = "<group>"; };
+		AA000064 /* CormorantInfant-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CormorantInfant-Bold.ttf"; sourceTree = "<group>"; };
+		AA000066 /* Devonshire-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Devonshire-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +108,10 @@
 				AA000051 /* DigitalNumbers-Regular.ttf */,
 				AA000053 /* CourierPrime-Regular.ttf */,
 				AA000055 /* CourierPrime-Bold.ttf */,
+				AA000060 /* CoveredByYourGrace-Regular.ttf */,
+				AA000062 /* ZenLoop-Regular.ttf */,
+				AA000064 /* CormorantInfant-Bold.ttf */,
+				AA000066 /* Devonshire-Regular.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -184,6 +196,10 @@
 				AA000050 /* DigitalNumbers-Regular.ttf in Resources */,
 				AA000052 /* CourierPrime-Regular.ttf in Resources */,
 				AA000054 /* CourierPrime-Bold.ttf in Resources */,
+				AA000061 /* CoveredByYourGrace-Regular.ttf in Resources */,
+				AA000063 /* ZenLoop-Regular.ttf in Resources */,
+				AA000065 /* CormorantInfant-Bold.ttf in Resources */,
+				AA000067 /* Devonshire-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

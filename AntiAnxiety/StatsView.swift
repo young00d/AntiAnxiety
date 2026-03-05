@@ -52,25 +52,11 @@ struct StatsView: View {
     func backgroundForSkin(_ skin: SkinType) -> some View {
         switch skin {
         case .threeBody:
-            Color(red: 0.96, green: 0.93, blue: 0.90)
+            Color(red: 0.96, green: 0.93, blue: 0.90) // #f4ede5
         case .woodenFish:
-            LinearGradient(
-                colors: [
-                    Color(red: 0.96, green: 0.93, blue: 0.88),
-                    Color(red: 0.92, green: 0.88, blue: 0.82)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            Color(red: 0.749, green: 0.690, blue: 0.612) // #bfb09c
         case .cat:
-            LinearGradient(
-                colors: [
-                    Color(red: 1.0, green: 0.96, blue: 0.94),
-                    Color(red: 0.98, green: 0.92, blue: 0.90)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
+            Color(red: 0.843, green: 0.737, blue: 0.639) // #d7bca3
         }
     }
 }
