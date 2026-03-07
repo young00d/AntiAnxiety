@@ -40,10 +40,10 @@ struct ContentView: View {
                 .ignoresSafeArea()
 
             if let tapManager {
+                // Main content area
                 VStack(spacing: 0) {
                     Spacer()
 
-                    // Main content area
                     switch currentSkin {
                     case .threeBody:
                         ThreeBodyView(tapManager: tapManager)
@@ -53,9 +53,15 @@ struct ContentView: View {
                         CatView(tapManager: tapManager)
                     }
 
-                    Spacer()
+                    // Cat paw extends behind the tab bar — no bottom spacer
+                    if currentSkin != .cat {
+                        Spacer()
+                    }
+                }
 
-                    // Bottom bar
+                // Bottom bar — transparent overlay, floats on top of content
+                VStack {
+                    Spacer()
                     HStack {
                         Button {
                             showDailyQuote = true

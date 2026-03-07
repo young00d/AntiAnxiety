@@ -1,5 +1,37 @@
 import SwiftUI
 
+// MARK: - Monospace Counter (等宽数字显示，每位数字固定宽度)
+struct MonospaceCounter: View {
+    let count: Int
+    let font: Font
+    let color: Color
+
+    /// Digits indexed by place value (0=ones, 1=tens…), displayed left-to-right
+    private var indexedDigits: [(placeValue: Int, char: String)] {
+        let str = String(count)
+        return Array(str.reversed().enumerated())
+            .reversed()
+            .map { (placeValue: $0.offset, char: String($0.element)) }
+    }
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(indexedDigits, id: \.placeValue) { item in
+                // Hidden "8" defines the fixed width for each digit slot
+                Text("8")
+                    .font(font)
+                    .foregroundStyle(.clear)
+                    .overlay {
+                        Text(item.char)
+                            .font(font)
+                            .foregroundStyle(color)
+                            .contentTransition(.numericText())
+                    }
+            }
+        }
+    }
+}
+
 // MARK: - Styled Floating Text View
 struct StyledFloatingTextView: View {
     let word: String
@@ -38,6 +70,11 @@ struct WoodenFishView: View {
         "Tranquil", "Stillness",
     ]
 
+    /// Image width scales with screen — 1.2× original (84% of screen width, cap 408pt)
+    private var imageWidth: CGFloat {
+        min(UIScreen.main.bounds.width * 0.84, 408)
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
@@ -50,10 +87,11 @@ struct WoodenFishView: View {
                 .padding(.bottom, 8)
 
             // ===== Middle: Large tap count =====
-            Text("\(tapManager.todayCount)")
-                .font(.custom("CormorantInfant-Bold", size: 120))
-                .foregroundStyle(textColor)
-                .contentTransition(.numericText())
+            MonospaceCounter(
+                count: tapManager.todayCount,
+                font: .custom("CormorantInfant-Bold", size: 120),
+                color: textColor
+            )
 
             Spacer()
 
@@ -66,7 +104,14 @@ struct WoodenFishView: View {
 
     private var woodenFishSection: some View {
         ZStack {
-            // Floating texts
+            // Wooden fish image (single composite with mallet)
+            Image(isPressed ? "muyu_pressed" : "muyu_normal")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: imageWidth)
+                .scaleEffect(isPressed ? 0.97 * 1.15 : 1.15)
+
+            // Floating texts — rendered ABOVE the image
             ForEach(floatingTexts) { ft in
                 StyledFloatingTextView(
                     word: ft.text,
@@ -79,17 +124,8 @@ struct WoodenFishView: View {
                     color: textColor
                 )
             }
-
-            // Wooden fish image (single composite with mallet)
-            Image(isPressed ? "muyu_pressed" : "muyu_normal")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 280)
-                .scaleEffect(isPressed ? 0.97 : 1.0)
-                .animation(.spring(response: 0.15, dampingFraction: 0.6), value: isPressed)
         }
-        .frame(height: 340)
-        .clipped()
+        .frame(height: imageWidth * 1.15)
         .onTapGesture {
             performTap()
         }
@@ -103,27 +139,26 @@ struct WoodenFishView: View {
             tapManager.increment()
         }
 
-        // Strike animation
-        withAnimation(.easeInOut(duration: 0.06)) {
-            isPressed = true
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            withAnimation(.easeInOut(duration: 0.2)) {
-                isPressed = false
-            }
+        // Instant press — no easing
+        isPressed = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.12) {
+            isPressed = false
         }
 
         // Floating text — random position wrapping around the item
         let word = wisdomWords.randomElement() ?? "Peace"
         let isLeft = Bool.random()
-        let xOffset = CGFloat.random(in: 70...120) * (isLeft ? -1 : 1)
+        let halfW = imageWidth / 2
+        let xOffset = CGFloat.random(in: (halfW * 0.55)...(halfW * 0.95)) * (isLeft ? -1 : 1)
         let angle = Double.random(in: 10...25) * (isLeft ? -1 : 1)
-        let ft = FloatingText(text: word, offsetX: xOffset, rotation: angle)
+        // Start from above the image top edge
+        let startY = -(imageWidth * 0.45)
+        let ft = FloatingText(text: word, offsetX: xOffset, offsetY: startY, rotation: angle)
         floatingTexts.append(ft)
 
         withAnimation(.easeOut(duration: 1.8)) {
             if let index = floatingTexts.firstIndex(where: { $0.id == ft.id }) {
-                floatingTexts[index].offsetY = -120
+                floatingTexts[index].offsetY = startY - 100
                 floatingTexts[index].opacity = 0
             }
         }

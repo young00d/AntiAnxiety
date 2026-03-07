@@ -49,35 +49,55 @@ struct CatView: View {
 
     @State private var gibberishText = "&@.)(#01&4)$"
 
+    /// Image width: 77% of screen width (Figma: 303pt / 393pt)
+    private var imageWidth: CGFloat {
+        UIScreen.main.bounds.width * 0.77
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             Spacer()
 
             // ===== Top: Keyboard-cat decorative text =====
+
             Text(gibberishText)
-                .font(.custom("CoveredByYourGrace", size: 22))
-                .foregroundStyle(textColor.opacity(0.5))
+                .font(.custom("CoveredByYourGrace", size: 18))
+                .foregroundStyle(textColor)
+                .tracking(2)
                 .padding(.bottom, 8)
 
             // ===== Middle: Large tap count =====
-            Text("\(tapManager.todayCount)")
-                .font(.custom("ZenLoop-Regular", size: 160))
-                .foregroundStyle(textColor)
-                .contentTransition(.numericText())
-                .padding(.bottom, 0)
+            MonospaceCounter(
+                count: tapManager.todayCount,
+                font: .custom("ZenLoop-Regular", size: 200),
+                color: textColor
+            )
 
             Spacer()
 
             // ===== Bottom: Real cat paw photo =====
             catPawSection
-
-            Spacer().frame(height: 12)
         }
+        .ignoresSafeArea(.container, edges: .bottom)
     }
 
     private var catPawSection: some View {
         ZStack {
-            // Floating texts
+            // Cat paw image — top-aligned, arm overflows far below screen bottom
+            // Image aspect ratio ≈ 1:1.34, so real height ≈ imageWidth × 1.34
+            // Frame only shows the top portion (paw pads), arm goes off-screen
+            Image(isPressed ? "cat_paw_pressed" : "cat_paw_normal")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: imageWidth)
+                .fixedSize()  // 锁定完整尺寸，阻止外层 frame 缩小
+                .scaleEffect(1.0, anchor: .top)
+                // 图片实际高度 ≈ imageWidth × 1.337 ≈ 405pt
+                // VStack 已 ignoresSafeArea(.bottom)，直接延伸到屏幕底部
+                // frame = imageWidth × 1.27 ≈ 384pt，溢出 ≈ 21pt（图底超出屏幕约 20pt）
+                .frame(height: imageWidth * 1.27, alignment: .top)
+
+            // Floating texts — rendered ABOVE the image
             ForEach(floatingTexts) { ft in
                 StyledFloatingTextView(
                     word: ft.text,
@@ -86,22 +106,13 @@ struct CatView: View {
                     offsetY: ft.offsetY,
                     rotation: ft.rotation,
                     wordFont: .custom("CoveredByYourGrace", size: 18),
-                    plusOneFont: .custom("ZenLoop-Regular", size: 36),
+                    plusOneFont: .custom("Devonshire-Regular", size: 32),
                     color: textColor
                 )
             }
-
-            // Cat paw image
-            Image(isPressed ? "cat_paw_pressed" : "cat_paw_normal")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 220)
-                .rotationEffect(.degrees(2.8))
-                .scaleEffect(isPressed ? 0.93 : 1.0)
-                .animation(.easeInOut(duration: 0.1), value: isPressed)
         }
-        .frame(height: 320)
-        .clipped()
+        .frame(height: imageWidth * 1.27)
+        .contentShape(Rectangle())
         .onTapGesture {
             performTap()
         }
@@ -114,14 +125,10 @@ struct CatView: View {
             tapManager.increment()
         }
 
-        // Press animation
-        withAnimation(.easeInOut(duration: 0.06)) {
-            isPressed = true
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
-            withAnimation(.easeInOut(duration: 0.15)) {
-                isPressed = false
-            }
+        // Instant press — no easing
+        isPressed = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            isPressed = false
         }
 
         // Update keyboard gibberish
@@ -130,14 +137,17 @@ struct CatView: View {
         // Floating text — random position wrapping around the paw
         let word = catWords.randomElement() ?? "Meow"
         let isLeft = Bool.random()
-        let xOffset = CGFloat.random(in: 60...110) * (isLeft ? -1 : 1)
+        let halfW = imageWidth / 2
+        let xOffset = CGFloat.random(in: (halfW * 0.5)...(halfW * 0.9)) * (isLeft ? -1 : 1)
         let angle = Double.random(in: 8...22) * (isLeft ? -1 : 1)
-        let ft = FloatingText(text: word, offsetX: xOffset, rotation: angle)
+        // Start near the paw pads (ZStack center is at frame/2 ≈ 0.635×imageWidth)
+        let startY = -(imageWidth * 0.50)
+        let ft = FloatingText(text: word, offsetX: xOffset, offsetY: startY, rotation: angle)
         floatingTexts.append(ft)
 
         withAnimation(.easeOut(duration: 1.8)) {
             if let index = floatingTexts.firstIndex(where: { $0.id == ft.id }) {
-                floatingTexts[index].offsetY = -120
+                floatingTexts[index].offsetY = startY - 100
                 floatingTexts[index].opacity = 0
             }
         }
